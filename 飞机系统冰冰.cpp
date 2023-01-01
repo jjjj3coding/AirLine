@@ -52,6 +52,46 @@ typedef struct passenger{
 user userArr[500005];
 flight flightArr[500005];
 passenger passengerArr[500005];
+
+void addUser(){
+//ÒÔÌí¼ÓÓÃ»§ÎªÀı£¬¼ÙÉèÒÑ¾­Éú³ÉÁËÒ»¸öÕËºÅ,²¢´æÔÚnew_userµÄaccountÊı×éÖĞ 
+	user new_user;
+	int user_num=userArr[0].amount;
+	int index;//ÓÃÓÚ¼ÇÂ¼ĞÂÕËºÅ²åÈëÎ»ÖÃµÄÏÂ±ê
+	if(user_num>0){//ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ 
+		for(int i=0;i<user_num;i++){
+			if(strcmp(new_user.account,userArr[i].account)<0){
+				index=i;
+				break;
+			}
+			if(i+1==user_num){//ÅĞ¶ÏÕËºÅĞÅÏ¢²åÈëÎ»ÖÃÊÇ·ñÔÚÊı×éÄ©Î² 
+				index=user_num;
+				break;
+			}
+		}
+		if(index<user_num){//Èô²åÈëÎ»ÖÃÔÚÊı×éÄ©Î²£¬ÔòÎŞĞèÒÆ¶¯ÆäËûÔªËØ 
+			for(int i=userArr[user_num].amount;i>index;i--){
+				strcpy(userArr[i].account,userArr[i-1].account);
+				strcpy(userArr[i].id,userArr[i-1].id);
+				strcpy(userArr[i].name,userArr[i-1].name);
+				strcpy(userArr[i].password,userArr[i-1].password);
+				strcpy(userArr[i].phoneNum,userArr[i-1].phoneNum);
+				userArr[i].level=userArr[i-1].level;
+			}
+		}
+	}
+	else
+		index=0;
+	//ÈôÊı×éÎª¿Õ£¬ÔòÖ±½ÓÔÚÊ×½áµã²åÈë 
+	strcpy(userArr[index].account,new_user.account);
+	strcpy(userArr[index].id,new_user.id);
+	strcpy(userArr[index].name,new_user.name);
+	strcpy(userArr[index].password,new_user.password);
+	strcpy(userArr[index].phoneNum,new_user.phoneNum);
+	userArr[index].level=new_user.level;
+	userArr[0].amount++;//½«ÓÃ»§Êı¼Ó1 
+	return;
+}
 void print()
 {
 	/*
@@ -143,10 +183,57 @@ int usersnum=userArr[0].amount;
 		printf("ÕâÊÇÄúµÄÕËºÅÓëÃÜÂë\n");
 		printf("%s\n%s\n",userArr[usersnum].account,userArr[usersnum].password);
 		printf("ÇëÀÎ¼ÇÄúµÄÕËºÅºÍÃÜÂë£¬¸ĞĞ»ÄúµÄÅäºÏÔÙ¼û£¡\n"); 
+		
+			user new_user;
+			strcpy(new_user.account,userArr[usersnum].account);
+			strcpy(new_user.id,userArr[usersnum].id);
+			strcpy(new_user.name,userArr[usersnum].name);
+			strcpy(new_user.password,userArr[usersnum].password);
+			strcpy(new_user.phoneNum,userArr[usersnum].phoneNum);
+				new_user.level=userArr[usersnum].level;
+				userArr[usersnum].level=0;
+			strcpy(userArr[usersnum].account,"0");
+			strcpy(userArr[usersnum].id,"0");
+			strcpy(userArr[usersnum].name,"0");
+			strcpy(userArr[usersnum].password,"0");
+			strcpy(userArr[usersnum].phoneNum,"0");
+			int user_num=userArr[0].amount;
+			int index;//ÓÃÓÚ¼ÇÂ¼ĞÂÕËºÅ²åÈëÎ»ÖÃµÄÏÂ±ê
+			if(user_num>0){//ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ 
+				for(int i=0;i<user_num;i++){
+					if(strcmp(new_user.account,userArr[i].account)<0){
+						index=i;
+						break;
+					}
+					if(i+1==user_num){//ÅĞ¶ÏÕËºÅĞÅÏ¢²åÈëÎ»ÖÃÊÇ·ñÔÚÊı×éÄ©Î² 
+						index=user_num;
+						break;
+					}
+				}
+				if(index<user_num){//Èô²åÈëÎ»ÖÃÔÚÊı×éÄ©Î²£¬ÔòÎŞĞèÒÆ¶¯ÆäËûÔªËØ 
+					for(int i=userArr[user_num].amount;i>index;i--){
+						strcpy(userArr[i].account,userArr[i-1].account);
+						strcpy(userArr[i].id,userArr[i-1].id);
+						strcpy(userArr[i].name,userArr[i-1].name);
+						strcpy(userArr[i].password,userArr[i-1].password);
+						strcpy(userArr[i].phoneNum,userArr[i-1].phoneNum);
+						userArr[i].level=userArr[i-1].level;
+					}
+				}
+			}
+			else
+				index=0;
+			//ÈôÊı×éÎª¿Õ£¬ÔòÖ±½ÓÔÚÊ×½áµã²åÈë 
+			strcpy(userArr[index].account,new_user.account);
+			strcpy(userArr[index].id,new_user.id);
+			strcpy(userArr[index].name,new_user.name);
+			strcpy(userArr[index].password,new_user.password);
+			strcpy(userArr[index].phoneNum,new_user.phoneNum);
+			userArr[index].level=new_user.level;
 		usersnum++;
 		userArr[0].amount=usersnum;
 		
-				}
+		}
 	}
 void rulersign()//¹ÜÀíÔ±Ìí¼ÓÓÃ»§//ĞÂ¹ÜÀíÔ± 
 {	
@@ -204,6 +291,53 @@ str.copy(userArr[usersnum].account, 12, 0);//ÕâÀï5´ú±í¸´ÖÆ¼¸¸ö×Ö·û£¬0´ú±í¸´ÖÆµÄÎ
 	printf("ÕâÊÇÄúµÄÕËºÅÓëÃÜÂë\n");
 	printf("%s\n%s\n",userArr[usersnum].account,userArr[usersnum].password);
 	printf("ÇëÀÎ¼ÇÄúµÄÕËºÅºÍÃÜÂë£¬¸ĞĞ»ÄúµÄÅäºÏÔÙ¼û£¡\n"); 
+	
+				user new_user;
+					strcpy(new_user.account,userArr[usersnum].account);
+					strcpy(new_user.id,userArr[usersnum].id);
+					strcpy(new_user.name,userArr[usersnum].name);
+					strcpy(new_user.password,userArr[usersnum].password);
+					strcpy(new_user.phoneNum,userArr[usersnum].phoneNum);
+					new_user.level=userArr[usersnum].level;
+					userArr[usersnum].level=0;
+					strcpy(userArr[usersnum].account,"0");
+					strcpy(userArr[usersnum].id,"0");
+					strcpy(userArr[usersnum].name,"0");
+					strcpy(userArr[usersnum].password,"0");
+					strcpy(userArr[usersnum].phoneNum,"0");
+				int user_num=userArr[0].amount;
+				int index;//ÓÃÓÚ¼ÇÂ¼ĞÂÕËºÅ²åÈëÎ»ÖÃµÄÏÂ±ê
+				if(user_num>0){//ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ 
+					for(int i=0;i<user_num;i++){
+						if(strcmp(new_user.account,userArr[i].account)<0){
+							index=i;
+							break;
+						}
+						if(i+1==user_num){//ÅĞ¶ÏÕËºÅĞÅÏ¢²åÈëÎ»ÖÃÊÇ·ñÔÚÊı×éÄ©Î² 
+							index=user_num;
+							break;
+						}
+					}
+					if(index<user_num){//Èô²åÈëÎ»ÖÃÔÚÊı×éÄ©Î²£¬ÔòÎŞĞèÒÆ¶¯ÆäËûÔªËØ 
+						for(int i=userArr[user_num].amount;i>index;i--){
+							strcpy(userArr[i].account,userArr[i-1].account);
+							strcpy(userArr[i].id,userArr[i-1].id);
+							strcpy(userArr[i].name,userArr[i-1].name);
+							strcpy(userArr[i].password,userArr[i-1].password);
+							strcpy(userArr[i].phoneNum,userArr[i-1].phoneNum);
+							userArr[i].level=userArr[i-1].level;
+						}
+					}
+				}
+				else
+					index=0;
+				//ÈôÊı×éÎª¿Õ£¬ÔòÖ±½ÓÔÚÊ×½áµã²åÈë 
+				strcpy(userArr[index].account,new_user.account);
+				strcpy(userArr[index].id,new_user.id);
+				strcpy(userArr[index].name,new_user.name);
+				strcpy(userArr[index].password,new_user.password);
+				strcpy(userArr[index].phoneNum,new_user.phoneNum);
+				userArr[index].level=new_user.level;
 		usersnum++;
 		userArr[0].amount=usersnum;
 			}
@@ -257,19 +391,7 @@ int  enter()
 		
 	}
 	
-}/*typedef struct user{
-	int amount;
-	char name[10];//ÓÃ»§ĞÕÃû 
-	char id[20];//ÓÃ»§Éí·İÖ¤ºÅ 
-	char account[15];//ÕËºÅ 
-	char password[20];//ÃÜÂë 
-	char phoneNum[12];//ÊÖ»úºÅ 
-	int level;//È¨ÏŞÖµ 
-}user;
-int usersnum=1;
-int flinum=1;
-int passnum=1; 
-
+}/* 
 typedef struct passenger{
 	int amount;
 	char name[10]; //ĞÕÃû 
@@ -321,10 +443,49 @@ while(flightArr[am].num>=168){
 }
 if(flightArr[am].num<168){
 	strcpy(passengerArr[passnum].flightNum,flightNum);
+		passenger new_passenger;	
+					strcpy(new_passenger.id,passengerArr[passnum].id);
+					strcpy(new_passenger.name,passengerArr[passnum].name);
+					strcpy(new_passenger.flightNum,passengerArr[passnum].flightNum);
+					strcpy(new_passenger.phoneNum,passengerArr[passnum].phoneNum);
+					strcpy(passengerArr[passnum].id,"0");
+					strcpy(passengerArr[passnum].name,"0");
+					strcpy(passengerArr[passnum].flightNum,"0");
+					strcpy(passengerArr[passnum].phoneNum,"0");
+				int passenger_num=passengerArr[0].amount;
+				int index;//ÓÃÓÚ¼ÇÂ¼ĞÂÕËºÅ²åÈëÎ»ÖÃµÄÏÂ±ê
+				if(passenger_num>0){//ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ 
+					for(int i=0;i<passenger_num;i++){
+						if(strcmp(new_passenger.id,passengerArr[i].id)<0){
+							index=i;
+							break;
+						}
+						if(i+1==passenger_num){//ÅĞ¶ÏÕËºÅĞÅÏ¢²åÈëÎ»ÖÃÊÇ·ñÔÚÊı×éÄ©Î² 
+							index=passenger_num;
+							break;
+						}
+					}
+					if(index<passenger_num){//Èô²åÈëÎ»ÖÃÔÚÊı×éÄ©Î²£¬ÔòÎŞĞèÒÆ¶¯ÆäËûÔªËØ 
+						for(int i=passengerArr[passenger_num].amount;i>index;i--){
+							strcpy(passengerArr[i].id,passengerArr[i-1].id);
+							strcpy(passengerArr[i].name,passengerArr[i-1].name);
+							strcpy(passengerArr[i].flightNum,passengerArr[i-1].flightNum);
+							strcpy(passengerArr[i].phoneNum,passengerArr[i-1].phoneNum);
+						}
+					}
+				}
+				else
+					index=0;
+				//ÈôÊı×éÎª¿Õ£¬ÔòÖ±½ÓÔÚÊ×½áµã²åÈë
+				strcpy(passengerArr[index].id,new_passenger.id);
+				strcpy(passengerArr[index].name,new_passenger.name);
+				strcpy(passengerArr[index].flightNum,new_passenger.flightNum);
+				strcpy(passengerArr[index].phoneNum,new_passenger.phoneNum);
 	passnum++;
 	passengerArr[0].amount=passnum;
 	printf("¹ºÆ±³É¹¦£¡»¶Ó­ÏÂ´ÎÊ¹ÓÃ£¡\n"); 
 } 
+
 }
 void checkinother()
 {
@@ -387,6 +548,44 @@ void checkinother()
 	}
 	if(flightArr[am].num<168){
 		strcpy(passengerArr[passnum].flightNum,flightNum);
+			passenger new_passenger;	
+							strcpy(new_passenger.id,passengerArr[passnum].id);
+							strcpy(new_passenger.name,passengerArr[passnum].name);
+							strcpy(new_passenger.flightNum,passengerArr[passnum].flightNum);
+							strcpy(new_passenger.phoneNum,passengerArr[passnum].phoneNum);
+							strcpy(passengerArr[passnum].id,"0");
+							strcpy(passengerArr[passnum].name,"0");
+							strcpy(passengerArr[passnum].flightNum,"0");
+							strcpy(passengerArr[passnum].phoneNum,"0");
+						int passenger_num=passengerArr[0].amount;
+						int index;//ÓÃÓÚ¼ÇÂ¼ĞÂÕËºÅ²åÈëÎ»ÖÃµÄÏÂ±ê
+						if(passenger_num>0){//ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ 
+							for(int i=0;i<passenger_num;i++){
+								if(strcmp(new_passenger.id,passengerArr[i].id)<0){
+									index=i;
+									break;
+								}
+								if(i+1==passenger_num){//ÅĞ¶ÏÕËºÅĞÅÏ¢²åÈëÎ»ÖÃÊÇ·ñÔÚÊı×éÄ©Î² 
+									index=passenger_num;
+									break;
+								}
+							}
+							if(index<passenger_num){//Èô²åÈëÎ»ÖÃÔÚÊı×éÄ©Î²£¬ÔòÎŞĞèÒÆ¶¯ÆäËûÔªËØ 
+								for(int i=passengerArr[passenger_num].amount;i>index;i--){
+									strcpy(passengerArr[i].id,passengerArr[i-1].id);
+									strcpy(passengerArr[i].name,passengerArr[i-1].name);
+									strcpy(passengerArr[i].flightNum,passengerArr[i-1].flightNum);
+									strcpy(passengerArr[i].phoneNum,passengerArr[i-1].phoneNum);
+								}
+							}
+						}
+						else
+							index=0;
+						//ÈôÊı×éÎª¿Õ£¬ÔòÖ±½ÓÔÚÊ×½áµã²åÈë
+						strcpy(passengerArr[index].id,new_passenger.id);
+						strcpy(passengerArr[index].name,new_passenger.name);
+						strcpy(passengerArr[index].flightNum,new_passenger.flightNum);
+						strcpy(passengerArr[index].phoneNum,new_passenger.phoneNum);	
 		passnum++;
 		passengerArr[0].amount=passnum;
 		printf("¹ºÆ±³É¹¦£¡»¶Ó­ÏÂ´ÎÊ¹ÓÃ£¡\n"); 
@@ -695,6 +894,62 @@ strcpy(flightArr[flinum].off_pos, map[(int)flightArr[flinum].flightNum[3]]);
 printf("ÇëÊäÈëÆ±¼Û\n");
 scanf("%lf",&flightArr[flinum].price);
 flightArr[flinum].num=0;
+	flight new_flight;	
+					strcpy(new_flight.flightNum,flightArr[flinum].flightNum);
+					strcpy(new_flight.up_time,flightArr[flinum].up_time);
+					strcpy(new_flight.off_time,flightArr[flinum].off_time);
+					strcpy(new_flight.up_pos,flightArr[flinum].up_pos);
+					strcpy(new_flight.off_pos,flightArr[flinum].off_pos);
+					new_flight.price=flightArr[flinum].price;
+					new_flight.dicount=flightArr[flinum].dicount;
+					new_flight.num=flightArr[flinum].num;
+					strcpy(flightArr[flinum].up_time,"0");
+					strcpy(flightArr[flinum].up_pos,"0");
+					strcpy(flightArr[flinum].flightNum,"0");
+					strcpy(flightArr[flinum].off_time,"0");
+					strcpy(flightArr[flinum].off_pos,"0");
+					flightArr[flinum].price=0;
+					flightArr[flinum].dicount=0;
+					flightArr[flinum].num=0;
+				int flight_num=flightArr[0].amount;
+				int index;//ÓÃÓÚ¼ÇÂ¼ĞÂÕËºÅ²åÈëÎ»ÖÃµÄÏÂ±ê
+				if(flight_num>0){//ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ 
+					for(int i=0;i<flight_num;i++){
+						if(strcmp(new_flight.flightNum,passengerArr[i].id)<0){
+							index=i;
+							break;
+
+						}
+						if(i+1==flight_num){//ÅĞ¶ÏÕËºÅĞÅÏ¢²åÈëÎ»ÖÃÊÇ·ñÔÚÊı×éÄ©Î² 
+							index=flight_num;
+							break;
+						}
+					}
+					if(index<flight_num){//Èô²åÈëÎ»ÖÃÔÚÊı×éÄ©Î²£¬ÔòÎŞĞèÒÆ¶¯ÆäËûÔªËØ 
+						for(int i=flightArr[flight_num].amount;i>index;i--){
+							strcpy(flightArr[i].flightNum,flightArr[i-1].flightNum);
+							strcpy(flightArr[i].up_time,flightArr[i-1].up_time);
+							strcpy(flightArr[i].off_time,flightArr[i-1].off_time);
+							strcpy(flightArr[i].up_pos,flightArr[i-1].up_pos);
+							strcpy(flightArr[i].off_pos,flightArr[i-1].off_pos);
+							flightArr[i].price=flightArr[i-1].price;
+							flightArr[i].dicount=flightArr[i-1].dicount;
+							flightArr[i].num=flightArr[i-1].num;
+				
+						}
+					}
+				}
+				else
+					index=0;
+				//ÈôÊı×éÎª¿Õ£¬ÔòÖ±½ÓÔÚÊ×½áµã²åÈë
+				strcpy(flightArr[index].up_time,new_flight.up_time);
+				strcpy(flightArr[index].off_time,new_flight.off_time);
+				strcpy(flightArr[index].flightNum,new_flight.flightNum);
+				strcpy(flightArr[index].up_pos,new_flight.up_pos);
+				strcpy(flightArr[index].off_pos,new_flight.off_pos);
+				flightArr[index].price=new_flight.price;
+				flightArr[index].dicount=new_flight.dicount;
+				flightArr[index].num=new_flight.num;
  flinum++;
  flightArr[0].amount=flinum;
 printf("Ìí¼Ó³É¹¦£¡\n");
@@ -716,10 +971,11 @@ int main(){
 input();
 
 	print();
+	int am=enter();
 	switch(choice)
 	{
 		case 1: sign(); break;
-		case 2: checkin(lms); break;
+		case 2: checkin(userArr[am].level,am); break;
 		case 3: checkout(); break;
 		case 4: input(); break;
 		default: change();
