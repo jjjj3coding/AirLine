@@ -53,45 +53,7 @@ user userArr[500005];
 flight flightArr[500005];
 passenger passengerArr[500005];
 
-void addUser(){
-//以添加用户为例，假设已经生成了一个账号,并存在new_user的account数组中 
-	user new_user;
-	int user_num=userArr[0].amount;
-	int index;//用于记录新账号插入位置的下标
-	if(user_num>0){//判断数组是否为空 
-		for(int i=0;i<user_num;i++){
-			if(strcmp(new_user.account,userArr[i].account)<0){
-				index=i;
-				break;
-			}
-			if(i+1==user_num){//判断账号信息插入位置是否在数组末尾 
-				index=user_num;
-				break;
-			}
-		}
-		if(index<user_num){//若插入位置在数组末尾，则无需移动其他元素 
-			for(int i=userArr[user_num].amount;i>index;i--){
-				strcpy(userArr[i].account,userArr[i-1].account);
-				strcpy(userArr[i].id,userArr[i-1].id);
-				strcpy(userArr[i].name,userArr[i-1].name);
-				strcpy(userArr[i].password,userArr[i-1].password);
-				strcpy(userArr[i].phoneNum,userArr[i-1].phoneNum);
-				userArr[i].level=userArr[i-1].level;
-			}
-		}
-	}
-	else
-		index=0;
-	//若数组为空，则直接在首结点插入 
-	strcpy(userArr[index].account,new_user.account);
-	strcpy(userArr[index].id,new_user.id);
-	strcpy(userArr[index].name,new_user.name);
-	strcpy(userArr[index].password,new_user.password);
-	strcpy(userArr[index].phoneNum,new_user.phoneNum);
-	userArr[index].level=new_user.level;
-	userArr[0].amount++;//将用户数加1 
-	return;
-}
+
 void print()
 {
 	/*
@@ -893,6 +855,16 @@ strcpy(flightArr[flinum].up_pos, map[(int)flightArr[flinum].flightNum[2]]);
 strcpy(flightArr[flinum].off_pos, map[(int)flightArr[flinum].flightNum[3]]);			
 printf("请输入票价\n");
 scanf("%lf",&flightArr[flinum].price);
+while(flightArr[flinum].price<0||flightArr[flinum].price>10000){
+	printf("票价输入有误，请重新输入\n");
+	scanf("%lf",&flightArr[flinum].price);
+}
+printf("请输入折扣\n");
+scanf("%lf",&flightArr[flinum].dicount);
+while(flightArr[flinum].dicount<0||flightArr[flinum].dicount>100){
+	printf("折扣输入有误，请重新输入\n");
+	scanf("%lf",&flightArr[flinum].dicount);
+}
 flightArr[flinum].num=0;
 	flight new_flight;	
 					strcpy(new_flight.flightNum,flightArr[flinum].flightNum);
